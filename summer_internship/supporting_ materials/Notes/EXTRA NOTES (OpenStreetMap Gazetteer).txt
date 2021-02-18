@@ -1,0 +1,145 @@
+EXTRA NOTES (OpenStreetMap Gazetteer)
+OSMNames project offers downloadable list of place names derived from OpenStreetMap database with a easy installation, clear licensing and clear code.
+
+Every gazetteer record comes with the coverage area (bounding box), administrative hierarchy, several identifiers, alternative names and precalculated rank derived from related Wikipedia page popularity.
+
+The TSV (tab separated value) data format simplifies handling of the community  
+curated data with over 21 million streets, towns, cities and administrative units from every country all over the world. Complete compressed dump has only about 1.5 gigabytes.
+
+The OSMNames data set was optimized and tested to feed the place search system of Klokan Technologies GmbH, Switzerland, which allows to search for a geographic location name and zoom a map to the right position.
+
+As a part of MapTiler Cloud, we are providing geocoding service. Geocoding is the process of transforming coordinates to a location. The service API is powered by our open-source project osmnames.org. Service is still in development now deployed as a beta version for testing purposes. Service does not support searching in addresses and POIs.
+
+Your API key for geocoding service is zjHdrAD8A6tMYePMBF2t
+
+Ex: on searching for a place
+{
+  "alternative_names": "Delhi",
+  "boundingbox": [
+    76.83883503,
+    28.40462495,
+    77.34630059,
+    28.88344636
+  ],
+  "display_name": "Delhi",
+  "lon": 77.1237345,
+  "lat": 28.6438635,
+  "name": "Delhi",
+  "name_suffix": "",
+  "type": "state"
+}
+
+Autocomplete JavaScript component
+You can easily create OSMNames autocomplete using the prepared JavaScript component:
+
+<html>
+  <head>
+    <script src="https://osmnames.org/api/v1/autocomplete.js"></script>
+    <link href="https://osmnames.org/api/v1/autocomplete.css" rel="stylesheet" />
+  </head>
+  <body>
+    <input autocomplete="off" id="search" type="text" />
+    <script>
+      var autocomplete = new kt.OsmNamesAutocomplete(
+          'search', 'https://search.osmnames.org/', '{API_KEY}');
+      // Replace {API_KEY} with your own key
+
+      autocomplete.registerCallback(function(item) {
+        alert(JSON.stringify(item, ' ', 2));
+      });
+    </script>
+  </body>
+</html>
+
+
+
+Base query is the search for a place with a string. It returns 20 results matching query word.
+
+https://geocoder.tilehosting.com/q/[query].js?key=zjHdrAD8A6tMYePMBF2t
+Reverse geocoding
+This endpoint transfers a location point (latitude, longitude) to a readable address or place name:
+
+https://geocoder.tilehosting.com/r/[longitude]/[latitude].js?key=zjHdrAD8A6tMYePMBF2t
+Country specific search
+Country specific search for autocomplete. This endpoint returns 20 results matching the within a specific country, identified by the (lowercase ISO 3166 Alpha-2 code).
+
+https://geocoder.tilehosting.com/[country_code]/q/[query].js?key=zjHdrAD8A6tMYePMBF2t
+
+Input data.tsv format
+
+This service accepts only TSV file named data.tsv (or gzip-ed version named data.tsv.gz) with the specific order of columns:
+
+name
+alternative_names
+osm_type
+osm_id
+class
+type
+lon
+lat
+place_rank
+importance
+street
+city
+county
+state
+country
+country_code
+display_name
+west
+south
+east
+north
+wikidata
+wikipedia
+housenumbers
+
+
+Example
+For example search for "Zurich" with
+
+https://geocoder.tilehosting.com/q/zurich.js?key=zjHdrAD8A6tMYePMBF2t
+returns results
+
+{
+  "count": 20,
+  "nextIndex": 20,
+  "startIndex": 0,
+  "totalResults": 264,
+  "results": [{
+    "boundingbox": [
+      8.44800609,
+      47.32022024,
+      8.62544126,
+      47.43466615
+    ],
+    "display_name": "Zurich, District Zurich, Zurich",
+    "lon": 8.528509,
+    "lat": 47.3774434,
+    "name": "Zurich",
+    "name_suffix": "District Zurich, Zurich",
+    "type": "city"
+  },
+  ...
+  ]
+}
+
+
+Target of OSM Names
+
+Downloadable gazeteer data a la GeoNames.org: http://download.geonames.org/export/dump/ but each record has bounding box and an importance rank known from Nominatim
+Data are derived primarily from OpenStreetMap
+The data format is simple to use tab-delimited text in utf8 encoding (as geonames.org). First line has column names.
+Different type of records are stored in different files (download and index just what you need, sometimes you don't need POIs or addresses with house numbers)
+Possible to generate from a country specific extract of Open Street Map (together with vector tiles)
+
+DATA EXTRACT BY BOUNDING BOX
+Because the data contains lon/lat columns as well as bounding boxes (west, south, east, north), you can also extract all records by geographical filters.
+
+To create an extract of all place names in the area of Zurich in Switzerland you can run a command like:
+
+zcat planet-latest_geonames.tsv.gz | awk -F '\t' -v OFS='\t' 'NR == 1 || ($8 > 47.225 && $8 < 47.533 && $7 > 8.275 && $7 < 8.800)' > zurich_switzerland.tsv
+
+to extract info abt a country:
+cat planet-latest_geonames.tsv.gz | awk -F '\t' -v OFS='\t' 'NR == 1 || $16 == "ch"' > switzerland.tsv
+

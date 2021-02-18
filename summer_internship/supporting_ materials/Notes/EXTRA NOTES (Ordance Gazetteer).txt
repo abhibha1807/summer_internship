@@ -1,0 +1,143 @@
+EXTRA NOTES (Ordance Gazetteer)
+
+How do the OS names API work?
+An API, or application programming interface, defines how two applications communicate. They could be enterprise software or simply websites with databases in the background.
+
+Our APIs let your website or internal application request information about place names, road numbers and postcodes from our OS Open Names database and display them on screen to your user. Typical uses include where is and where's my nearest searches.
+
+You submit your query via an HTTPS GET request; results will be returned as either XML or JSON. For more detailed information, please see the user guide.
+
+What does the OS Names API do?
+OS Names provides a fast lookup service on a large scale, but at the moment it doesn’t let users search for individual, detailed addresses (See OS Places).
+
+t’s an exceptionally reliable way of supporting the discovery or identification and visualisation of a named place; geocoding; routing and navigation, and linking diverse information such as statistics or descriptions. The API can locate a feature using just its name, or it can find the closest location to a given point.
+
+You can:
+
+Search for areas, cities and roads
+Search for postcodes
+Search for named woodlands and forests
+
+ You can't:
+
+Search for specific addresses (e.g. 21 Croxton Road)
+Bulk-search for addresses
+Make more than 250,000 calls a month
+
+
+OS Open Names
+OS Open Names is a geographic directory containing basic information about identifiable places. Those places are divided into themes, but the name of the place is the key property we use in queries.
+
+Within OS Open Names, place names aren’t unique. Extra location details are provided to help users refine their queries and accurately identify the named place they’re interested in. These details include postcode district, populated place, district/borough, county/unitary authority, European region and country.
+
+We also recognise that a place may have more than one name: one, such as Cardiff (in English) and then another, Caerdydd (in Welsh).
+
+Our specification will extend the Infrastructure for Spatial Information in the European Community (INSPIRE) Geographical Names theme to ensure it’s compliant with European open data initiatives
+
+what are API Keys?
+1) its a  value that identifies your aoplication and or requests
+2) u need to be first accepted as a user and procure ur own API key then only u can use the api service 
+3) the api key will be a part of the request u make to the service 
+4) with theapi key the servuce can identify u and log in u, hence used for authorisation
+5) if thereare too many requests then it can stop the user as it'll feel like as if the user is performing a cyber attack 
+
+API
+An API for a website is code that allows two software programs to communicate with each another . The API spells out the proper way for a developer to write a program requesting services from an operating system or other application.
+
+REST API's
+REST (REpresentational State Transfer) is an architectural style for developing web services. REST is popular due to its simplicity and the fact that it builds upon existing systems and features of the internet's HTTP in order to achieve its objectives, as opposed to creating new standards, frameworks and technologies.
+
+the entire REST architecture is built upon concepts with which most developers are already familiar.
+As long as a programming language can make web-based requests using HTTP, it is possible for that language to be used to invoke a RESTful API or web service
+REST is a logical choice for building APIs that allow users to connect and interact with cloud services. 
+
+A RESTful API explicitly takes advantage of HTTP methodologies defined by the RFC 2616 protocol. They use GET to retrieve a resource; PUT to change the state of or update a resource, which can be an object, file or block; POST to create that resource ; and DELETE to remove it.
+
+Because the calls are stateless, REST is useful in cloud applications. Stateless components can be freely redeployed if something fails, and they can scale to accommodate load changes. This is because any request can be directed to any instance of a component; there can be nothing saved that has to be remembered by the next transaction. That makes REST preferred for web use, but the RESTful model is also helpful in cloud services because binding to a service through an API is a matter of controlling how the URL is decoded.
+
+
+SAMPLE OUTPUT
+ "GAZETTEER_ENTRY" : {
+      "ID" : "osgb4000000013395400",
+      "NAMES_URI" : "http://data.ordnancesurvey.co.uk/id/4000000013395400",
+      "NAME1" : "Amlwch Avenue",
+      "TYPE" : "transportNetwork",
+      "LOCAL_TYPE" : "Named Road",
+      "GEOMETRY_X" : 391934.0,
+      "GEOMETRY_Y" : 388925.0,
+      "MOST_DETAIL_VIEW_RES" : 1000,
+      "LEAST_DETAIL_VIEW_RES" : 20000,
+      "MBR_XMIN" : 391892.0,
+      "MBR_YMIN" : 388925.0,
+      "MBR_XMAX" : 391934.0,
+      "MBR_YMAX" : 388941.0,
+      "POSTCODE_DISTRICT" : "SK2",
+      "POSTCODE_DISTRICT_URI" : "http://data.ordnancesurvey.co.uk/id/postcodedistrict/SK2",
+      "POPULATED_PLACE" : "Stockport",
+      "POPULATED_PLACE_URI" : "http://data.ordnancesurvey.co.uk/id/4000000074545870",
+      "POPULATED_PLACE_TYPE" : "http://www.ordnancesurvey.co.uk/xml/codelists/localtype.xml#town",
+      "DISTRICT_BOROUGH" : "Stockport",
+      "DISTRICT_BOROUGH_URI" : "http://data.ordnancesurvey.co.uk/id/7000000000018757",
+      "DISTRICT_BOROUGH_TYPE" : "http://data.ordnancesurvey.co.uk/ontology/admingeo/MetropolitanDistrict",
+      "REGION" : "North West",
+      "REGION_URI" : "http://data.ordnancesurvey.co.uk/id/7000000000041431",
+      "COUNTRY" : "England",
+      "COUNTRY_URI" : "http://data.ordnancesurvey.co.uk/id/country/england"
+    }
+
+
+
+What are the response codes?
+Code	Official Description	Explanation in context of the API
+200
+
+OK
+
+Request has been successful.
+
+304
+
+Not Modified
+
+In response to a conditional GET request this response indicates that the underlying data has not changed since the previous request, and cached results may be re-used.
+
+400
+
+Bad request
+
+E.g. missing query parameter, malformed syntax.
+
+401
+
+Unauthorized
+
+The client has not provided authentication or incorrect authentication.
+
+404
+
+Not found
+
+The server has not found anything matching the Request-URI.
+
+405
+
+Method not allowed
+
+Request used an unsupported HTTP method, e.g. DELETE or PUT.
+
+500
+
+Internal server error
+
+Generic internal server error.
+
+503
+
+Service unavailable
+
+E.g. due to overloading or maintenance.
+
+
+
+for more code snippets: https://github.com/OrdnanceSurvey/OS-Open-Names
+

@@ -1,0 +1,4 @@
+EXTRA NOTES (Unlock Gazetteer)
+
+Georeferencing placenames and geographic data searching
+It has a REST interface that allows you to POST texts using your local URLs and GET the geoparsed results in xml or json format. The documentation page on the site explains how.
